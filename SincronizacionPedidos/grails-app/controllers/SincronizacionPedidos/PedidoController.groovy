@@ -6,6 +6,7 @@ import grails.gorm.transactions.Transactional
 
 class PedidoController {
 
+    @Transactional
     def testApi() {
         String apiToken = 'Bearer c5u6t6rmgel8vslbkfbdls7stcs1l0bm'
         String apiUrl = 'https://hub.handy.la/api/v2/salesOrder'
