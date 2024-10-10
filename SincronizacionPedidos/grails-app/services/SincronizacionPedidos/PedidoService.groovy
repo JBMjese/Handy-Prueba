@@ -4,11 +4,10 @@ import grails.gorm.transactions.Transactional
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 
-
+@groovy.util.logging.Log
 @Transactional
 class PedidoService {
-    private static final Log log = LogFactory.getLog(PedidoService)
-
+    
     void saveOrders(List<Map> orders) {
         orders.each { orderData ->
             if (!orderData.id || orderData.totalSales == null) {

@@ -47,6 +47,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-tomcat")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.codehaus.groovy.modules.http-builder:http-builder:0.7.1")
+    implementation("org.springframework.boot:spring-boot-starter-quartz")
     implementation("org.grails.plugins:gsp")
     compileOnly("org.quartz-scheduler:quartz:2.3.2")
     console("org.grails:grails-console")
@@ -94,11 +95,4 @@ assets {
     minifyCss = true
 }
 
-quartz:
-    autoStartup: true
-    jobStore:
-        class: org.springframework.scheduling.quartz.LocalDataSourceJobStore
-    triggers:
-        handyPollingTrigger:
-            cronExpression: '*/10 * * * * ?'
-            jobName: handyPollingJob
+

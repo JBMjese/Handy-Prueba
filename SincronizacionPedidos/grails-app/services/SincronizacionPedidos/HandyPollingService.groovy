@@ -4,6 +4,8 @@ import grails.gorm.transactions.Transactional
 import org.quartz.Job
 import org.quartz.JobExecutionContext
 import org.quartz.JobExecutionException
+import groovy.json.JsonSlurper
+
 
 @Transactional
 class HandyPollingService implements Job {

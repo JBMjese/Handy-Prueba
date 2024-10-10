@@ -6,10 +6,9 @@ import grails.gorm.transactions.Transactional
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 
+@groovy.util.logging.Log
 class PedidoController {
-
-    private static final Log log = LogFactory.getLog(PedidoController)
-
+    
     @Transactional
     def testApi() {
         String apiToken = 'Bearer c5u6t6rmgel8vslbkfbdls7stcs1l0bm'
