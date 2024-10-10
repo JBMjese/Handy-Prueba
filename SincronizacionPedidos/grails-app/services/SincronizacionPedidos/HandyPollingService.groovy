@@ -31,14 +31,32 @@ class HandyPollingService implements Job {
         }
     }
 
-    void businessLogic(salesOrders, deleted) {
-        for (salesOrder in salesOrders) {
-            // Guarda el pedido de ventas en un sistema ERP
-            def erpSalesOrder = new ErpSalesOrder(
+    void businessLogic(salesOrders, logInfo = true) {
+        log.info('Inicio del método businessLogic')
+
+        try {
+            // Guarda los pedidos de ventas  en sistema ERP
+            for (salesOrder in salesOrders) {
+                def erpSalesOrder = new ErpSalesOrder(
                 externalId: salesOrder.id,
             )
-            erpSalesOrder.save()
+                erpSalesOrder.save()
+            }
+
+            // Detecta pedidos eliminados en Handy y elimina los de la base de datos local
+            def handySalesOrdersIds = salesOrders*.id
+            def localSalesOrders = ErpSalesOrder.findAllByExternalIdNotInList(handySalesOrdersIds)
+            localSalesOrders*.delete()
+
+            if (logInfo) {
+                log.info("Pedidos de ventas guardados en sistema ERP: ${salesOrders.size()}")
+                log.info("Pedidos de ventas eliminados de sistema ERP: ${localSalesOrders.size()}")
+            }
+    } catch (Exception e) {
+            log.error("Error en el método businessLogic: ${e.message}")
         }
+
+        log.info('Fin del método businessLogic')
     }
 
 }
