@@ -8,7 +8,9 @@ import org.apache.commons.logging.LogFactory
 
 @groovy.util.logging.Log
 class PedidoController {
-    
+
+    PedidoService pedidoService
+
     @Transactional
     def testApi() {
         String apiToken = 'Bearer c5u6t6rmgel8vslbkfbdls7stcs1l0bm'
@@ -38,6 +40,26 @@ class PedidoController {
         } catch (Exception e) {
             // Manejo de excepciones
             log.error("Error al consumir la API: ${e.message}", e)
+        }
+    }
+
+    @Transactional
+    def saveOrders() {
+        def jsonSlurper = new JsonSlurper()
+        def ordersData = jsonSlurper.parse(request.JSON)
+
+        if (!ordersData) {
+            log.error('No se recibieron datos de pedidos.')
+            render status: 400, text: 'No se recibieron datos de pedidos.'
+            return
+        }
+
+        try {
+            pedidoService.saveOrders(ordersData)
+            render status: 200, text: 'Pedidos guardados exitosamente.'
+        } catch (Exception e) {
+            log.error("Error al guardar los pedidos: ${e.message}", e)
+            render status: 500, text: 'Error al guardar los pedidos.'
         }
     }
 

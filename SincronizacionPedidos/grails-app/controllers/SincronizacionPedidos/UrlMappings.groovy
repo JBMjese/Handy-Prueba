@@ -5,6 +5,8 @@ class UrlMappings {
         
         // Rura para el consumo de la api
         "/test"(controller: "pedido", action: 'testApi', method: "GET")
+        "/saveOrders"(controller: "pedido", action: 'saveOrders', method: "POST")
+
 
         "/$controller/$action?/$id?(.$format)?"{
             constraints {
