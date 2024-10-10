@@ -1,7 +1,11 @@
 package SincronizacionPedidos
 
 class UrlMappings {
-    static mappings = {
+    static mappings = {        
+        
+        // Rura para el consumo de la api
+        "/test"(controller: "pedido", action: 'testApi', method: "GET")
+
         "/$controller/$action?/$id?(.$format)?"{
             constraints {
                 // apply constraints here
